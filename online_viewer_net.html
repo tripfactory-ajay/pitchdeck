@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripFactory & ORN - Pitch Deck</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .gradient-text {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .brand-bar {
+            background: linear-gradient(90deg, #1e3a8a 0%, #3b82f6 50%, #84cc16 100%);
+            height: 4px;
+            width: 100%;
+        }
+        .tripfactory-blue { color: #1e3a8a; }
+        .bg-tripfactory-blue { background-color: #1e3a8a; }
+        .orn-green { color: #84cc16; }
+        .bg-orn-green { background-color: #84cc16; }
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 0;
+        }
+        .slide-dark {
+            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+            color: white;
+        }
+        .slide-light {
+            background: #ffffff;
+            color: #1f2937;
+        }
+        .slide-gray {
+            background: #f8fafc;
+            color: #1f2937;
+        }
+        .logo-container {
+            background: white;
+            padding: 0.75rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .lang-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            z-index: 50;
+            min-width: 200px;
+            display: none;
+        }
+        .lang-dropdown.show { display: block; }
+        .lang-option {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .lang-option:hover { background: #f3f4f6; }
+        .problem-card {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid #ef4444;
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 1rem;
+        }
+        .solution-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+        .solution-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            border-color: #3b82f6;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        .comparison-table th {
+            background: #1e3a8a;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .comparison-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        .traction-stat {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .team-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        .team-card:hover {
+            transform: translateY(-4px);
+        }
+        .ask-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border-top: 4px solid #84cc16;
+        }
+        .nav-dots {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 40;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .nav-dot.active {
+            background: #84cc16;
+            border-color: white;
+            transform: scale(1.2);
+        }
+        .nav-dot.light {
+            background: rgba(30, 58, 138, 0.3);
+        }
+        .nav-dot.light.active {
+            background: #1e3a8a;
+        }
+        .revenue-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid #3b82f6;
+        }
+        .advantage-check {
+            color: #84cc16;
+            margin-right: 0.75rem;
+        }
+        .advantage-cross {
+            color: #ef4444;
+            margin-right: 0.75rem;
+        }
+        .map-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        }
+        .map-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            padding: 3rem;
+            color: white;
+        }
+        .continent-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .continent-card:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-4px);
+        }
+        .stat-highlight {
+            background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+        .hero-stat {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .ecosystem-connector {
+            position: absolute;
+            top: 50%;
+            left: 33.33%;
+            right: 33.33%;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #84cc16);
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+        @media (max-width: 768px) {
+            .ecosystem-connector { display: none; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Brand Bar -->
+    <div class="brand-bar fixed top-0 w-full z-50"></div>
+
+    <!-- Fixed Header -->
+    <header class="fixed top-4 w-full bg-white/95 backdrop-blur-sm border-b border-gray-100 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center space-x-4">
+                    <div class="logo-container">
+                        <img src="./tripfactory-logo.png" alt="TripFactory" class="h-8 w-auto">
+                    </div>
+                    <div class="text-gray-300">|</div>
+                    <div class="logo-container">
+                        <img src="./orn-logo.png" alt="ORN" class="h-8 w-auto">
+                    </div>
+                    <div class="text-gray-300">|</div>
+                    <div class="logo-container">
+                        <img src="./nexus-logo.png" alt="Nexus DMC" class="h-8 w-auto">
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">ISO 27001:2022</span>
+                    
+                    <!-- Language Selector -->
+                    <div class="relative ml-4">
+                        <button onclick="toggleLangDropdown()" class="flex items-center space-x-2 px-3 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
+                            <span id="current-flag">🇬🇧</span>
+                            <span class="text-sm font-medium text-gray-700" id="current-lang">English</span>
+                            <i class="fas fa-chevron-down text-xs text-gray-400"></i>
+                        </button>
+                        <div id="lang-dropdown" class="lang-dropdown">
+                            <div class="lang-option" onclick="changeLanguage('en')">
+                                <span class="mr-3 text-2xl">🇬🇧</span>
+                                <span>English</span>
+                            </div>
+                            <div class="lang-option" onclick="changeLanguage('es')">
+                                <span class="mr-3 text-2xl">🇪🇸</span>
+                                <span>Español</span>
+                            </div>
+                            <div class="lang-option" onclick="changeLanguage('de')">
+                                <span class="mr-3 text-2xl">🇩🇪</span>
+                                <span>Deutsch</span>
+                            </div>
+                            <div class="lang-option" onclick="changeLanguage('fr')">
+                                <span class="mr-3 text-2xl">🇫🇷</span>
+                                <span>Français</span>
+                            </div>
+                            <div class="lang-option" onclick="changeLanguage('ar')">
+                                <span class="mr-3 text-2xl">🇸🇦</span>
+                                <span>العربية</span>
+                            </div>
+                            <div class="lang-option" onclick="changeLanguage('hi')">
+                                <span class="mr-3 text-2xl">🇮🇳</span>
+                                <span>हिन्दी</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Dots -->
+    <div class="nav-dots">
+        <div class="nav-dot light active" onclick="scrollToSlide(0)" title="Cover"></div>
+        <div class="nav-dot light" onclick="scrollToSlide(1)" title="Problem"></div>
+        <div class="nav-dot light" onclick="scrollToSlide(2)" title="Market"></div>
+        <div class="nav-dot light" onclick="scrollToSlide(3)" title="Solution"></div>
+        <div class="nav-dot" onclick="scrollToSlide(4)" title="Global Presence"></div>
+        <div class="nav-dot light" onclick="scrollToSlide(5)" title="Business Model"></div>
+        <div class="nav-dot" onclick="scrollToSlide(6)" title="Advantage"></div>
+        <div class="nav-dot light" onclick="scrollToSlide(7)" title="Traction"></div>
+        <div class="nav-dot light" onclick="scrollToSlide(8)" title="Team"></div>
+        <div class="nav-dot" onclick="scrollToSlide(9)" title="The Ask"></div>
+        <div class="nav-dot light" onclick="scrollToSlide(10)" title="Closing"></div>
+    </div>
+
+    <!-- Slide 0: Cover / Title Slide - WHITE BACKGROUND -->
+    <section class="slide slide-light" id="slide-0">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 pt-24 text-center">
+            <div class="flex justify-center items-center space-x-8 mb-12">
+                <img src="./tripfactory-logo.png" alt="TripFactory" class="h-20 w-auto">
+                <span class="text-6xl text-gray-300">+</span>
+                <img src="./orn-logo.png" alt="ORN" class="h-20 w-auto">
+            </div>
+
+            <h1 class="text-6xl lg:text-8xl font-bold mb-8 leading-tight text-center">
+                <span data-translate="cover_title1">Scale.</span> <span class="text-green-600" data-translate="cover_title2">Structure.</span> <span data-translate="cover_title3">Growth.</span>
+            </h1>
+
+            <p class="text-2xl text-gray-600 mb-12 max-w-3xl mx-auto text-center" data-translate="cover_subtitle">
+                An integrated global travel ecosystem connecting 500K+ travellers, 104 nationalities, and 5 continents through direct, margin-optimised distribution.
+            </p>
+
+            <div class="grid md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-12">
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+                    <div class="text-4xl font-bold text-blue-900 mb-1">500K+</div>
+                    <div class="text-sm text-gray-500" data-translate="cover_stat1">Global Travellers</div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+                    <div class="text-4xl font-bold text-blue-900 mb-1">104</div>
+                    <div class="text-sm text-gray-500" data-translate="cover_stat2">Nationalities</div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+                    <div class="text-4xl font-bold text-blue-900 mb-1">5</div>
+                    <div class="text-sm text-gray-500" data-translate="cover_stat3">Continents</div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+                    <div class="text-4xl font-bold text-blue-900 mb-1">$60B</div>
+                    <div class="text-sm text-gray-500" data-translate="cover_stat4">HCL Group</div>
+                </div>
+            </div>
+
+            <div class="flex justify-center space-x-4">
+                <span class="px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm border border-blue-200">
+                    <i class="fas fa-building mr-2"></i>TripFactory
+                </span>
+                <span class="px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm border border-green-200">
+                    <i class="fas fa-globe mr-2"></i>ORN Worldwide
+                </span>
+                <span class="px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm border border-purple-200">
+                    <i class="fas fa-network-wired mr-2"></i>Nexus DMC
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 1: The Problem -->
+    <section class="slide slide-dark" id="slide-1">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8 pt-24 text-center">
+            <div class="mb-8">
+                <span class="text-green-400 font-semibold tracking-wider uppercase text-sm" data-translate="slide1_label">The Travel Distribution Opportunity</span>
+            </div>
+            
+            <h1 class="text-5xl lg:text-7xl font-bold mb-12 leading-tight text-center" data-translate="slide1_headline">
+                The Travel Distribution<br>Model Is <span class="text-red-400">Broken</span>
+            </h1>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-12 text-left">
+                <div class="problem-card">
+                    <div class="flex items-start">
+                        <i class="fas fa-percentage text-red-400 text-2xl mr-4 mt-1"></i>
+                        <div>
+                            <h3 class="font-bold text-xl mb-2" data-translate="problem_1_title">Margin Erosion</h3>
+                            <p class="text-gray-300" data-translate="problem_1_desc">Suppliers lose 15–35% margin to intermediaries</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="problem-card">
+                    <div class="flex items-start">
+                        <i class="fas fa-puzzle-piece text-red-400 text-2xl mr-4 mt-1"></i>
+                        <div>
+                            <h3 class="font-bold text-xl mb-2" data-translate="problem_2_title">Fragmentation</h3>
+                            <p class="text-gray-300" data-translate="problem_2_desc">Fragmented distribution across OTAs, agents, and wholesalers</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="problem-card">
+                    <div class="flex items-start">
+                        <i class="fas fa-clock text-red-400 text-2xl mr-4 mt-1"></i>
+                        <div>
+                            <h3 class="font-bold text-xl mb-2" data-translate="problem_3_title">Cash Flow Strain</h3>
+                            <p class="text-gray-300" data-translate="problem_3_desc">Delayed settlements (60–120 days) impact cash flow</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="problem-card">
+                    <div class="flex items-start">
+                        <i class="fas fa-network-wired text-red-400 text-2xl mr-4 mt-1"></i>
+                        <div>
+                            <h3 class="font-bold text-xl mb-2" data-translate="problem_4_title">Limited Access</h3>
+                            <p class="text-gray-300" data-translate="problem_4_desc">Limited direct access to global agent networks</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="problem-card md:col-span-2">
+                    <div class="flex items-start">
+                        <i class="fas fa-chart-line text-red-400 text-2xl mr-4 mt-1"></i>
+                        <div>
+                            <h3 class="font-bold text-xl mb-2" data-translate="problem_5_title">Rising CAC</h3>
+                            <p class="text-gray-300" data-translate="problem_5_desc">Increasing customer acquisition costs in B2C channels</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+                <p class="text-2xl font-bold text-center" data-translate="slide1_closing">
+                    Travel suppliers need a smarter, more direct, margin-efficient distribution ecosystem.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 2: Market Opportunity -->
+    <section class="slide slide-light" id="slide-2">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8 pt-24 text-center">
+            <div class="mb-8">
+                <span class="text-blue-600 font-semibold tracking-wider uppercase text-sm" data-translate="slide2_label">Market Opportunity</span>
+            </div>
+
+            <h1 class="text-5xl lg:text-6xl font-bold text-gray-900 mb-6 text-center" data-translate="slide2_headline">
+                A <span class="gradient-text">$9+ Trillion</span> Global Travel Market, Rapidly Evolving
+            </h1>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12 text-left">
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                            <i class="fas fa-globe-americas text-tripfactory-blue text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-900 text-lg" data-translate="market_1_title">Massive Scale</h3>
+                            <p class="text-gray-600" data-translate="market_1_desc">Global travel & tourism contributes over $9T annually</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                            <i class="fas fa-chart-line text-green-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-900 text-lg" data-translate="market_2_title">Post-Pandemic Recovery</h3>
+                            <p class="text-gray-600" data-translate="market_2_desc">Post-pandemic recovery driving accelerated international travel</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                            <i class="fas fa-users text-purple-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-900 text-lg" data-translate="market_3_title">Curated Demand</h3>
+                            <p class="text-gray-600" data-translate="market_3_desc">Rising demand for curated holidays, group travel & MICE</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                            <i class="fas fa-handshake text-orange-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-900 text-lg" data-translate="market_4_title">B2B Growth</h3>
+                            <p class="text-gray-600" data-translate="market_4_desc">Growing B2B need for structured, reliable distribution networks</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                            <i class="fas fa-rocket text-red-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-900 text-lg" data-translate="market_5_title">Emerging Markets</h3>
+                            <p class="text-gray-600" data-translate="market_5_desc">Emerging markets fuelling outbound tourism growth</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-8 text-white text-center">
+                <p class="text-2xl font-bold" data-translate="slide2_closing">
+                    Massive opportunity for integrated, scalable travel distribution platforms.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Our Solution -->
+    <section class="slide slide-gray" id="slide-3">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 pt-24 text-center">
+            <div class="mb-4">
+                <span class="text-blue-600 font-semibold tracking-wider uppercase text-sm" data-translate="slide3_label">Our Solution</span>
+            </div>
+
+            <h1 class="text-5xl lg:text-6xl font-bold text-gray-900 mb-4 text-center" data-translate="slide3_headline">
+                TripFactory + ORN: An Integrated Travel Ecosystem
+            </h1>
+            
+            <p class="text-xl text-gray-600 mb-12 max-w-3xl mx-auto text-center" data-translate="slide3_subheadline">
+                Connecting suppliers, agents, and travellers, efficiently and globally.
+            </p>
+
+            <div class="relative">
+                <div class="ecosystem-connector hidden md:block"></div>
+                
+                <div class="grid md:grid-cols-3 gap-8 mb-12 relative z-10 text-left">
+                    <!-- B2C -->
+                    <div class="solution-card border-blue-200">
+                        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fas fa-users text-3xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">B2C</h3>
+                        <p class="text-blue-600 font-semibold mb-4">TripFactory</p>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span data-translate="solution_b2c_1">Curated international holiday packages</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span data-translate="solution_b2c_2">Multi-destination itineraries</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span data-translate="solution_b2c_3">500K+ travellers served</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- B2B -->
+                    <div class="solution-card border-green-200">
+                        <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fas fa-network-wired text-3xl text-green-600"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">B2B Distribution</h3>
+                        <p class="text-green-600 font-semibold mb-4">ORN</p>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span data-translate="solution_b2b_1">Global agent network across 104 nationalities</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span data-translate="solution_b2b_2">Direct supplier partnerships</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span data-translate="solution_b2b_3">Structured yield management</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- MICE -->
+                    <div class="solution-card border-purple-200">
+                        <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fas fa-briefcase text-3xl text-purple-600"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">MICE & Group</h3>
+                        <p class="text-purple-600 font-semibold mb-4">Corporate Travel</p>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span data-translate="solution_mice_1">Corporate travel & events</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span data-translate="solution_mice_2">End-to-end planning and delivery</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span data-translate="solution_mice_3">Scalable global execution</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-2xl p-8 text-white text-center">
+                <p class="text-2xl font-bold" data-translate="slide3_closing">
+                    We reduce leakage, increase margins, and simplify global distribution.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: Global Presence with Map -->
+    <section class="slide slide-dark" id="slide-4">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 pt-24 text-center">
+            <div class="mb-8">
+                <span class="text-green-400 font-semibold tracking-wider uppercase text-sm" data-translate="slide4_global_label">Global Footprint</span>
+            </div>
+
+            <h1 class="text-5xl lg:text-6xl font-bold mb-8 text-center" data-translate="slide4_global_headline">
+                Global Presence, <span class="text-green-400">Local Execution</span>
+            </h1>
+
+            <div class="map-container bg-gray-800 mb-8">
+                <img src="./global-map.png" alt="ORN Worldwide Global Map" class="w-full h-auto object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="hidden w-full h-96 bg-gray-800 items-center justify-center text-gray-400">
+                    <div class="text-center">
+                        <i class="fas fa-globe-americas text-6xl mb-4"></i>
+                        <p>Global Map Image (global-map.png)</p>
+                    </div>
+                </div>
+                <div class="map-overlay">
+                    <div class="flex flex-col md:flex-row justify-between items-end">
+                        <div class="text-left">
+                            <h3 class="text-3xl font-bold mb-2">ORN Worldwide</h3>
+                            <p class="text-gray-300 text-lg">Direct operations in 30+ countries</p>
+                        </div>
+                        <div class="mt-4 md:mt-0 text-right">
+                            <div class="text-5xl font-bold text-green-400">104</div>
+                            <div class="text-lg text-gray-300">Nationalities Served</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-5 gap-4">
+                <div class="continent-card">
+                    <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-landmark text-white text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2" data-translate="europe">Europe</h3>
+                    <ul class="text-sm text-gray-400 space-y-1">
+                        <li>9 Stations</li>
+                        <li>100+ Team</li>
+                        <li>59 Tour Buses</li>
+                    </ul>
+                </div>
+
+                <div class="continent-card">
+                    <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-mosque text-white text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2" data-translate="middle_east">Middle East</h3>
+                    <ul class="text-sm text-gray-400 space-y-1">
+                        <li>Dubai Hub</li>
+                        <li>Oman & Bahrain</li>
+                        <li>24/7 Support</li>
+                    </ul>
+                </div>
+
+                <div class="continent-card">
+                    <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-umbrella-beach text-white text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2" data-translate="asia_pacific">Asia-Pacific</h3>
+                    <ul class="text-sm text-gray-400 space-y-1">
+                        <li>Melbourne HQ</li>
+                        <li>Bali Operations</li>
+                        <li>20 Vehicles</li>
+                    </ul>
+                </div>
+
+                <div class="continent-card">
+                    <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-city text-white text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2" data-translate="north_america">North America</h3>
+                    <ul class="text-sm text-gray-400 space-y-1">
+                        <li>64-Person Team</li>
+                        <li>NY • LA • Florida</li>
+                        <li>Timezone Aligned</li>
+                    </ul>
+                </div>
+
+                <div class="continent-card">
+                    <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-mountain text-white text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2" data-translate="south_america">South America</h3>
+                    <ul class="text-sm text-gray-400 space-y-1">
+                        <li>Peru Office</li>
+                        <li>Argentina Hub</li>
+                        <li>Brazil Coverage</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5: Business Model -->
+    <section class="slide slide-light" id="slide-5">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8 pt-24 text-center">
+            <div class="mb-8">
+                <span class="text-blue-600 font-semibold tracking-wider uppercase text-sm" data-translate="slide5_label">Business Model</span>
+            </div>
+
+            <h1 class="text-5xl lg:text-6xl font-bold text-gray-900 mb-12 text-center" data-translate="slide5_headline">
+                Scalable, Multi-Channel <span class="gradient-text">Revenue Model</span>
+            </h1>
+
+            <div class="grid lg:grid-cols-2 gap-12 text-left">
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center" data-translate="revenue_streams_title">Revenue Streams</h3>
+                    
+                    <div class="revenue-item">
+                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-shopping-cart text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900" data-translate="revenue_1">Commission margins from B2C holiday sales</h4>
+                        </div>
+                    </div>
+
+                    <div class="revenue-item">
+                        <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-handshake text-green-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900" data-translate="revenue_2">B2B distribution margins</h4>
+                        </div>
+                    </div>
+
+                    <div class="revenue-item">
+                        <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-file-contract text-purple-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900" data-translate="revenue_3">Contracted supplier agreements</h4>
+                        </div>
+                    </div>
+
+                    <div class="revenue-item">
+                        <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-building text-orange-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900" data-translate="revenue_4">MICE & corporate travel revenues</h4>
+                        </div>
+                    </div>
+
+                    <div class="revenue-item">
+                        <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-map-marked-alt text-red-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900" data-translate="revenue_5">Strategic destination partnerships</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center" data-translate="why_scales_title">Why It Scales</h3>
+                    
+                    <div class="bg-gray-50 rounded-2xl p-8 space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-cloud text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg" data-translate="scale_1_title">Asset-Light</h4>
+                                <p class="text-gray-600" data-translate="scale_1_desc">Asset-light operating structure</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-green-600 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-microchip text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg" data-translate="scale_2_title">Tech-Enabled</h4>
+                                <p class="text-gray-600" data-translate="scale_2_desc">Technology-enabled distribution</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-purple-600 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-globe text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg" data-translate="scale_3_title">Global Network</h4>
+                                <p class="text-gray-600" data-translate="scale_3_desc">Expanding global agent network</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-orange-600 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-redo text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg" data-translate="scale_4_title">Repeat Growth</h4>
+                                <p class="text-gray-600" data-translate="scale_4_desc">Repeat and referral-driven growth</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 6: Competitive Advantage -->
+    <section class="slide slide-dark" id="slide-6">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8 pt-24 text-center">
+            <div class="mb-8">
+                <span class="text-green-400 font-semibold tracking-wider uppercase text-sm" data-translate="slide6_label">Competitive Advantage</span>
+            </div>
+
+            <h1 class="text-5xl lg:text-6xl font-bold mb-12 text-center" data-translate="slide6_headline">
+                Why We <span class="text-green-400">Win</span>
+            </h1>
+
+            <div class="overflow-hidden rounded-2xl border border-white/20 mb-12">
+                <table class="comparison-table w-full text-left">
+                    <thead>
+                        <tr>
+                            <th class="w-1/3" data-translate="table_feature">Feature</th>
+                            <th class="w-1/3 bg-red-600" data-translate="table_traditional">Traditional Model</th>
+                            <th class="w-1/3 bg-green-600" data-translate="table_tforn">TripFactory + ORN</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white/10 backdrop-blur-sm">
+                        <tr>
+                            <td class="font-semibold" data-translate="comp_row_1">Distribution</td>
+                            <td><i class="fas fa-times advantage-cross"></i><span data-translate="comp_trad_1">Multi-layer intermediaries</span></td>
+                            <td><i class="fas fa-check advantage-check"></i><span data-translate="comp_tforn_1">Direct structured distribution</span></td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold" data-translate="comp_row_2">Margins</td>
+                            <td><i class="fas fa-times advantage-cross"></i><span data-translate="comp_trad_2">High margin erosion</span></td>
+                            <td><i class="fas fa-check advantage-check"></i><span data-translate="comp_tforn_2">Margin optimisation</span></td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold" data-translate="comp_row_3">Settlements</td>
+                            <td><i class="fas fa-times advantage-cross"></i><span data-translate="comp_trad_3">Slow settlements</span></td>
+                            <td><i class="fas fa-check advantage-check"></i><span data-translate="comp_tforn_3">Faster cash cycles</span></td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold" data-translate="comp_row_4">Reach</td>
+                            <td><i class="fas fa-times advantage-cross"></i><span data-translate="comp_trad_4">Fragmented supplier reach</span></td>
+                            <td><i class="fas fa-check advantage-check"></i><span data-translate="comp_tforn_4">Integrated ecosystem</span></td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold" data-translate="comp_row_5">Network</td>
+                            <td><i class="fas fa-times advantage-cross"></i><span data-translate="comp_trad_5">Limited agent network access</span></td>
+                            <td><i class="fas fa-check advantage-check"></i><span data-translate="comp_tforn_5">Global agent connectivity</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center border border-white/20">
+                    <i class="fas fa-globe-americas text-4xl text-green-400 mb-4"></i>
+                    <h4 class="font-bold text-lg" data-translate="diff_1">Established global footprint</h4>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center border border-white/20">
+                    <i class="fas fa-handshake text-4xl text-green-400 mb-4"></i>
+                    <h4 class="font-bold text-lg" data-translate="diff_2">Strong supplier relationships</h4>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center border border-white/20">
+                    <i class="fas fa-exchange-alt text-4xl text-green-400 mb-4"></i>
+                    <h4 class="font-bold text-lg" data-translate="diff_3">Dual B2C + B2B capability</h4>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center border border-white/20">
+                    <i class="fas fa-chart-line text-4xl text-green-400 mb-4"></i>
+                    <h4 class="font-bold text-lg" data-translate="diff_4">Proven operational scale</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 7: Traction -->
+    <section class="slide slide-gray" id="slide-7">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8 pt-24 text-center">
+            <div class="mb-8">
+                <span class="text-blue-600 font-semibold tracking-wider uppercase text-sm" data-translate="slide7_label">Traction & Growth</span>
+            </div>
+
+            <h1 class="text-5xl lg:text-6xl font-bold text-gray-900 mb-6 text-center" data-translate="slide7_headline">
+                Proven Track <span class="gradient-text">Record</span>
+            </h1>
+
+            <p class="text-xl text-gray-600 mb-12 max-w-3xl mx-auto text-center" data-translate="traction_subtitle">
+                Building scale across 5 continents, serving travellers from 104 nationalities through our integrated ecosystem.
+            </p>
+
+            <div class="grid md:grid-cols-4 gap-6 mb-12">
+                <div class="traction-stat border-t-4 border-blue-500">
+                    <div class="text-5xl font-bold text-blue-600 mb-2">500K+</div>
+                    <div class="text-gray-600 font-medium" data-translate="traction_1">Travellers Served</div>
+                    <div class="text-sm text-gray-500 mt-2" data-translate="traction_1_sub">Across 50+ countries</div>
+                </div>
+                <div class="traction-stat border-t-4 border-green-500">
+                    <div class="text-5xl font-bold text-green-600 mb-2">5</div>
+                    <div class="text-gray-600 font-medium" data-translate="traction_2">Continents</div>
+                    <div class="text-sm text-gray-500 mt-2" data-translate="traction_2_sub">Direct operations</div>
+                </div>
+                <div class="traction-stat border-t-4 border-purple-500">
+                    <div class="text-5xl font-bold text-purple-600 mb-2">104</div>
+                    <div class="text-gray-600 font-medium" data-translate="traction_3">Nationalities Reached</div>
+                    <div class="text-sm text-gray-500 mt-2" data-translate="traction_3_sub">Global diversity</div>
+                </div>
+                <div class="traction-stat border-t-4 border-orange-500">
+                    <div class="text-5xl font-bold text-orange-600 mb-2">10K+</div>
+                    <div class="text-gray-600 font-medium" data-translate="traction_4">Agent Partners</div>
+                    <div class="text-sm text-gray-500 mt-2" data-translate="traction_4_sub">Global network</div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-8 text-left">
+                <div class="bg-white rounded-2xl p-8 shadow-lg">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 text-center" data-translate="traction_details_title">Key Metrics</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span data-translate="traction_detail_1">Strong supplier partnerships</span>
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span data-translate="traction_detail_2">Growing repeat customer base</span>
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span data-translate="traction_detail_3">Multi-continent operations</span>
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span data-translate="traction_detail_4">Diverse nationality coverage</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl p-8 text-white flex items-center justify-center">
+                    <div class="text-center">
+                        <i class="fas fa-award text-6xl mb-4"></i>
+                        <p class="text-2xl font-bold mb-2">Part of $60B HCL Group</p>
+                        <p class="text-blue-100">Enterprise-grade infrastructure</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white text-center">
+                <p class="text-2xl font-bold" data-translate="slide7_closing">
+                    Built scale. Built trust. Ready to accelerate.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 8: Team -->
+    <section class="slide slide-light" id="slide-8">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8 pt-24 text-center">
+            <div class="mb-8">
+                <span class="text-blue-600 font-semibold tracking-wider uppercase text-sm" data-translate="slide8_label">Leadership & Execution</span>
+            </div>
+
+            <h1 class="text-5xl lg:text-6xl font-bold text-gray-900 mb-12 text-center" data-translate="slide8_headline">
+                Experienced Leadership Driving <span class="gradient-text">Global Growth</span>
+            </h1>
+
+            <div class="grid md:grid-cols-4 gap-6 mb-12">
+                <div class="team-card">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-user-tie text-3xl text-blue-600"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-gray-900 mb-1" data-translate="team_1_name">Founder/CEO</h3>
+                    <p class="text-blue-600 text-sm font-medium mb-3" data-translate="team_1_role">Vision & Strategy</p>
+                    <p class="text-gray-600 text-sm" data-translate="team_1_desc">Years of travel industry experience, scale built</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-cogs text-3xl text-green-600"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-gray-900 mb-1" data-translate="team_2_name">COO/Operations</h3>
+                    <p class="text-green-600 text-sm font-medium mb-3" data-translate="team_2_role">Global Operations</p>
+                    <p class="text-gray-600 text-sm" data-translate="team_2_desc">Multi-continent operational expertise</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-handshake text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-gray-900 mb-1" data-translate="team_3_name">Partnerships Lead</h3>
+                    <p class="text-purple-600 text-sm font-medium mb-3" data-translate="team_3_role">Supplier Growth</p>
+                    <p class="text-gray-600 text-sm" data-translate="team_3_desc">Global supplier network expansion</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-laptop-code text-3xl text-orange-600"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-gray-900 mb-1" data-translate="team_4_name">Tech/Product Lead</h3>
+                    <p class="text-orange-600 text-sm font-medium mb-3" data-translate="team_4_role">Platform & Scale</p>
+                    <p class="text-gray-600 text-sm" data-translate="team_4_desc">Technology infrastructure & scalability</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-900 rounded-2xl p-8 text-white text-center">
+                <p class="text-2xl font-bold" data-translate="slide8_closing">
+                    Deep industry expertise + execution capability.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 9: The Ask -->
+    <section class="slide slide-dark" id="slide-9">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8 pt-24 text-center">
+            <div class="mb-8">
+                <span class="text-green-400 font-semibold tracking-wider uppercase text-sm" data-translate="slide9_label">Strategic Partner Ask</span>
+            </div>
+
+            <h1 class="text-5xl lg:text-6xl font-bold mb-12 text-center" data-translate="slide9_headline">
+                Strategic Partnership <span class="text-green-400">Opportunity</span>
+            </h1>
+
+            <div class="grid lg:grid-cols-2 gap-12 mb-12 text-left">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 text-green-400 text-center" data-translate="seeking_title">We are seeking:</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                            <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-map-marker-alt text-white text-xl"></i>
+                            </div>
+                            <span class="text-xl font-semibold" data-translate="seek_1">Destination partners</span>
+                        </div>
+                        <div class="flex items-center bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                            <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-hotel text-white text-xl"></i>
+                            </div>
+                            <span class="text-xl font-semibold" data-translate="seek_2">Global hotel chains</span>
+                        </div>
+                        <div class="flex items-center bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                            <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-globe text-white text-xl"></i>
+                            </div>
+                            <span class="text-xl font-semibold" data-translate="seek_3">DMC collaborations</span>
+                        </div>
+                        <div class="flex items-center bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                            <div class="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-network-wired text-white text-xl"></i>
+                            </div>
+                            <span class="text-xl font-semibold" data-translate="seek_4">Regional distribution partners</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 text-green-400 text-center" data-translate="partners_gain_title">What Partners Gain:</h3>
+                    <div class="ask-card text-gray-800">
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 text-xl mr-3 mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-lg" data-translate="gain_1_title">Direct Access</h4>
+                                    <p class="text-gray-600" data-translate="gain_1_desc">Direct access to global agents</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 text-xl mr-3 mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-lg" data-translate="gain_2_title">Yield Optimisation</h4>
+                                    <p class="text-gray-600" data-translate="gain_2_desc">Structured yield optimisation</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 text-xl mr-3 mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-lg" data-translate="gain_3_title">Global Reach</h4>
+                                    <p class="text-gray-600" data-translate="gain_3_desc">Expanded international reach</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 text-xl mr-3 mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-lg" data-translate="gain_4_title">Reliable Volume</h4>
+                                    <p class="text-gray-600" data-translate="gain_4_desc">Reliable volume pipeline</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-2xl p-8 text-white text-center">
+                <p class="text-2xl font-bold" data-translate="slide9_closing">
+                    Let's build a stronger, more profitable travel ecosystem together.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 10: Strong Closing -->
+    <section class="slide slide-gray" id="slide-10">
+        <div class="max-w-5xl mx-auto px-6 lg:px-8 pt-24 text-center">
+            <div class="mb-8">
+                <div class="flex justify-center items-center space-x-6 mb-8">
+                    <img src="./tripfactory-logo.png" alt="TripFactory" class="h-16 w-auto">
+                    <span class="text-4xl text-gray-300">+</span>
+                    <img src="./orn-logo.png" alt="ORN" class="h-16 w-auto">
+                </div>
+            </div>
+
+            <h1 class="text-4xl lg:text-6xl font-bold text-gray-900 mb-8 leading-tight text-center" data-translate="closing_headline">
+                The Future of Travel Distribution Is <span class="gradient-text">Integrated</span>, <span class="gradient-text">Global</span>, and <span class="gradient-text">Margin-Optimised</span>
+            </h1>
+
+            <div class="bg-white rounded-3xl shadow-2xl p-12 mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">TripFactory + ORN</h2>
+                <div class="flex justify-center space-x-8 text-lg font-semibold text-gray-600 mb-8">
+                    <span class="flex items-center"><i class="fas fa-chart-line text-blue-600 mr-2"></i> Scale</span>
+                    <span class="flex items-center"><i class="fas fa-sitemap text-green-600 mr-2"></i> Structure</span>
+                    <span class="flex items-center"><i class="fas fa-rocket text-purple-600 mr-2"></i> Growth</span>
+                </div>
+                
+                <!-- Mini Global Stats -->
+                <div class="grid grid-cols-4 gap-4 max-w-2xl mx-auto pt-8 border-t border-gray-200">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-blue-600">500K+</div>
+                        <div class="text-xs text-gray-500">Travellers</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-green-600">104</div>
+                        <div class="text-xs text-gray-500">Nationalities</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-purple-600">5</div>
+                        <div class="text-xs text-gray-500">Continents</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-orange-600">$60B</div>
+                        <div class="text-xs text-gray-500">HCL Group</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-building text-2xl text-tripfactory-blue"></i>
+                    </div>
+                    <div class="font-semibold text-gray-900 mb-1">European HQ</div>
+                    <div class="text-sm text-gray-600">17 Hanover Square, London</div>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-envelope text-2xl text-green-600"></i>
+                    </div>
+                    <div class="font-semibold text-gray-900 mb-1">Contact</div>
+                    <div class="text-sm text-gray-600">euro@tripfactory.com</div>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-globe text-2xl text-purple-600"></i>
+                    </div>
+                    <div class="font-semibold text-gray-900 mb-1">Websites</div>
+                    <div class="text-sm text-gray-600">tripfactory.com</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Translation Script -->
+    <script>
+        const translations = {
+            en: {
+                // Cover Slide
+                cover_title1: "Scale.",
+                cover_title2: "Structure.",
+                cover_title3: "Growth.",
+                cover_subtitle: "An integrated global travel ecosystem connecting 500K+ travellers, 104 nationalities, and 5 continents through direct, margin-optimised distribution.",
+                cover_stat1: "Global Travellers",
+                cover_stat2: "Nationalities",
+                cover_stat3: "Continents",
+                cover_stat4: "HCL Group",
+                
+                // Slide 1
+                slide1_label: "The Travel Distribution Opportunity",
+                slide1_headline: "The Travel Distribution<br>Model Is <span class='text-red-400'>Broken</span>",
+                problem_1_title: "Margin Erosion",
+                problem_1_desc: "Suppliers lose 15–35% margin to intermediaries",
+                problem_2_title: "Fragmentation",
+                problem_2_desc: "Fragmented distribution across OTAs, agents, and wholesalers",
+                problem_3_title: "Cash Flow Strain",
+                problem_3_desc: "Delayed settlements (60–120 days) impact cash flow",
+                problem_4_title: "Limited Access",
+                problem_4_desc: "Limited direct access to global agent networks",
+                problem_5_title: "Rising CAC",
+                problem_5_desc: "Increasing customer acquisition costs in B2C channels",
+                slide1_closing: "Travel suppliers need a smarter, more direct, margin-efficient distribution ecosystem.",
+                
+                // Slide 2
+                slide2_label: "Market Opportunity",
+                slide2_headline: "A <span class='gradient-text'>$9+ Trillion</span> Global Travel Market, Rapidly Evolving",
+                market_1_title: "Massive Scale",
+                market_1_desc: "Global travel & tourism contributes over $9T annually",
+                market_2_title: "Post-Pandemic Recovery",
+                market_2_desc: "Post-pandemic recovery driving accelerated international travel",
+                market_3_title: "Curated Demand",
+                market_3_desc: "Rising demand for curated holidays, group travel & MICE",
+                market_4_title: "B2B Growth",
+                market_4_desc: "Growing B2B need for structured, reliable distribution networks",
+                market_5_title: "Emerging Markets",
+                market_5_desc: "Emerging markets fuelling outbound tourism growth",
+                slide2_closing: "Massive opportunity for integrated, scalable travel distribution platforms.",
+                
+                // Slide 3
+                slide3_label: "Our Solution",
+                slide3_headline: "TripFactory + ORN: An Integrated Travel Ecosystem",
+                slide3_subheadline: "Connecting suppliers, agents, and travellers, efficiently and globally.",
+                solution_b2c_1: "Curated international holiday packages",
+                solution_b2c_2: "Multi-destination itineraries",
+                solution_b2c_3: "500K+ travellers served",
+                solution_b2b_1: "Global agent network across 104 nationalities",
+                solution_b2b_2: "Direct supplier partnerships",
+                solution_b2b_3: "Structured yield management",
+                solution_mice_1: "Corporate travel & events",
+                solution_mice_2: "End-to-end planning and delivery",
+                solution_mice_3: "Scalable global execution",
+                slide3_closing: "We reduce leakage, increase margins, and simplify global distribution.",
+                
+                // Slide 4 - Global Presence
+                slide4_global_label: "Global Footprint",
+                slide4_global_headline: "Global Presence, <span class='text-green-400'>Local Execution</span>",
+                europe: "Europe",
+                middle_east: "Middle East",
+                asia_pacific: "Asia-Pacific",
+                north_america: "North America",
+                south_america: "South America",
+                
+                // Slide 5
+                slide5_label: "Business Model",
+                slide5_headline: "Scalable, Multi-Channel <span class='gradient-text'>Revenue Model</span>",
+                revenue_streams_title: "Revenue Streams",
+                revenue_1: "Commission margins from B2C holiday sales",
+                revenue_2: "B2B distribution margins",
+                revenue_3: "Contracted supplier agreements",
+                revenue_4: "MICE & corporate travel revenues",
+                revenue_5: "Strategic destination partnerships",
+                why_scales_title: "Why It Scales",
+                scale_1_title: "Asset-Light",
+                scale_1_desc: "Asset-light operating structure",
+                scale_2_title: "Tech-Enabled",
+                scale_2_desc: "Technology-enabled distribution",
+                scale_3_title: "Global Network",
+                scale_3_desc: "Expanding global agent network",
+                scale_4_title: "Repeat Growth",
+                scale_4_desc: "Repeat and referral-driven growth",
+                
+                // Slide 6
+                slide6_label: "Competitive Advantage",
+                slide6_headline: "Why We <span class='text-green-400'>Win</span>",
+                table_feature: "Feature",
+                table_traditional: "Traditional Model",
+                table_tforn: "TripFactory + ORN",
+                comp_row_1: "Distribution",
+                comp_trad_1: "Multi-layer intermediaries",
+                comp_tforn_1: "Direct structured distribution",
+                comp_row_2: "Margins",
+                comp_trad_2: "High margin erosion",
+                comp_tforn_2: "Margin optimisation",
+                comp_row_3: "Settlements",
+                comp_trad_3: "Slow settlements",
+                comp_tforn_3: "Faster cash cycles",
+                comp_row_4: "Reach",
+                comp_trad_4: "Fragmented supplier reach",
+                comp_tforn_4: "Integrated ecosystem",
+                comp_row_5: "Network",
+                comp_trad_5: "Limited agent network access",
+                comp_tforn_5: "Global agent connectivity",
+                diff_1: "Established global footprint",
+                diff_2: "Strong supplier relationships",
+                diff_3: "Dual B2C + B2B capability",
+                diff_4: "Proven operational scale",
+                
+                // Slide 7
+                slide7_label: "Traction & Growth",
+                slide7_headline: "Proven Track <span class='gradient-text'>Record</span>",
+                traction_subtitle: "Building scale across 5 continents, serving travellers from 104 nationalities through our integrated ecosystem.",
+                traction_1: "Travellers Served",
+                traction_1_sub: "Across 50+ countries",
+                traction_2: "Continents",
+                traction_2_sub: "Direct operations",
+                traction_3: "Nationalities Reached",
+                traction_3_sub: "Global diversity",
+                traction_4: "Agent Partners",
+                traction_4_sub: "Global network",
+                traction_details_title: "Key Metrics",
+                traction_detail_1: "Strong supplier partnerships",
+                traction_detail_2: "Growing repeat customer base",
+                traction_detail_3: "Multi-continent operations",
+                traction_detail_4: "Diverse nationality coverage",
+                slide7_closing: "Built scale. Built trust. Ready to accelerate.",
+                
+                // Slide 8
+                slide8_label: "Leadership & Execution",
+                slide8_headline: "Experienced Leadership Driving <span class='gradient-text'>Global Growth</span>",
+                team_1_name: "Founder/CEO",
+                team_1_role: "Vision & Strategy",
+                team_1_desc: "Years of travel industry experience, scale built",
+                team_2_name: "COO/Operations",
+                team_2_role: "Global Operations",
+                team_2_desc: "Multi-continent operational expertise",
+                team_3_name: "Partnerships Lead",
+                team_3_role: "Supplier Growth",
+                team_3_desc: "Global supplier network expansion",
+                team_4_name: "Tech/Product Lead",
+                team_4_role: "Platform & Scale",
+                team_4_desc: "Technology infrastructure & scalability",
+                slide8_closing: "Deep industry expertise + execution capability.",
+                
+                // Slide 9
+                slide9_label: "Strategic Partner Ask",
+                slide9_headline: "Strategic Partnership <span class='text-green-400'>Opportunity</span>",
+                seeking_title: "We are seeking:",
+                seek_1: "Destination partners",
+                seek_2: "Global hotel chains",
+                seek_3: "DMC collaborations",
+                seek_4: "Regional distribution partners",
+                partners_gain_title: "What Partners Gain:",
+                gain_1_title: "Direct Access",
+                gain_1_desc: "Direct access to global agents",
+                gain_2_title: "Yield Optimisation",
+                gain_2_desc: "Structured yield optimisation",
+                gain_3_title: "Global Reach",
+                gain_3_desc: "Expanded international reach",
+                gain_4_title: "Reliable Volume",
+                gain_4_desc: "Reliable volume pipeline",
+                slide9_closing: "Let's build a stronger, more profitable travel ecosystem together.",
+                
+                // Closing
+                closing_headline: "The Future of Travel Distribution Is <span class='gradient-text'>Integrated</span>, <span class='gradient-text'>Global</span>, and <span class='gradient-text'>Margin-Optimised</span>"
+            }
+            // Other languages (es, de, fr, ar, hi) would follow same structure...
+        };
+
+        let currentLang = 'en';
+
+        function toggleLangDropdown() {
+            const dropdown = document.getElementById('lang-dropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            const flagMap = {
+                'en': '🇬🇧',
+                'es': '🇪🇸',
+                'de': '🇩🇪',
+                'fr': '🇫🇷',
+                'ar': '🇸🇦',
+                'hi': '🇮🇳'
+            };
+            const langMap = {
+                'en': 'English',
+                'es': 'Español',
+                'de': 'Deutsch',
+                'fr': 'Français',
+                'ar': 'العربية',
+                'hi': 'हिन्दी'
+            };
+            
+            document.getElementById('current-flag').textContent = flagMap[lang];
+            document.getElementById('current-lang').textContent = langMap[lang];
+            
+            const elements = document.querySelectorAll('[data-translate]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            if (lang === 'ar') {
+                document.body.style.direction = 'rtl';
+                document.body.style.textAlign = 'right';
+            } else {
+                document.body.style.direction = 'ltr';
+                document.body.style.textAlign = 'left';
+            }
+
+            toggleLangDropdown();
+        }
+
+        function scrollToSlide(index) {
+            const slide = document.getElementById(`slide-${index}`);
+            if (slide) {
+                slide.scrollIntoView({ behavior: 'smooth' });
+                updateNavDots(index);
+            }
+        }
+
+        function updateNavDots(activeIndex) {
+            const dots = document.querySelectorAll('.nav-dot');
+            const slides = document.querySelectorAll('.slide');
+            
+            dots.forEach((dot, index) => {
+                dot.classList.remove('active');
+                if (index === activeIndex) {
+                    dot.classList.add('active');
+                }
+                
+                const slide = slides[index];
+                if (slide && (slide.classList.contains('slide-light') || slide.classList.contains('slide-gray'))) {
+                    dot.classList.add('light');
+                } else {
+                    dot.classList.remove('light');
+                }
+            });
+        }
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const slideId = entry.target.id;
+                    const index = parseInt(slideId.split('-')[1]);
+                    updateNavDots(index);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.slide').forEach(slide => {
+            observer.observe(slide);
+        });
+
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('lang-dropdown');
+            const button = event.target.closest('button');
+            if (!button || !button.onclick || button.onclick.toString().indexOf('toggleLangDropdown') === -1) {
+                if (!event.target.closest('.lang-dropdown')) {
+                    dropdown.classList.remove('show');
+                }
+            }
+        });
+
+        updateNavDots(0);
+    </script>
+
+</body>
+</html>
